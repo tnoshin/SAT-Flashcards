@@ -109,5 +109,12 @@
         background: #555;
     }
 </style>
+<script>
+    const card = document.getElementById('card');
+    const flipBtn = document.getElementById('flip');
 
+    flipBtn.addEventListener('click', function (){
+        card.classList.toggle('flipped');
+    })
+</script>
 </html>
