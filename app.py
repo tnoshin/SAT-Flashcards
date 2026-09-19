@@ -18,4 +18,5 @@ def load_cards():
 def home():
     return render_template('index.html', cards=load_cards()) 
 
-
+if __name__ =='__main__':
+    app.run() 
