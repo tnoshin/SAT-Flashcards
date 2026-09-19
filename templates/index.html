@@ -10,16 +10,15 @@
 <body>
     <div class="outer_card">
         <div class="card" id="card">
-            <div class="card_front" id="card_front">{{ cards[0].word }}</div>
-            <div class="card_back" id="card_back">{{ cards[0].definition }}</div>
+            <button class="card_front" id="card_front">{{ cards[0].word }}</button>
+            <button class="card_back" id="card_back">{{ cards[0].definition }}</button>
         </div>
     </div>
     <div class="buttons">
         <button class="prev" id="prev">Prev</button>
-        <button class="flip" id="flip">Flip</button>
         <button class="next" id="next">Next</button>
     </div>
-</body>
+
 
 <style>
     body {
@@ -110,11 +109,43 @@
     }
 </style>
 <script>
-    const card = document.getElementById('card');
-    const flipBtn = document.getElementById('flip');
+    const cards = {{ cards|tojson }};
+    let index=0;
 
-    flipBtn.addEventListener('click', function (){
+
+    const card = document.getElementById('card');
+    const back = document.getElementById('card_back');
+    const front = document.getElementById('card_front');
+    const flipBtn = document.getElementById('flip');
+    const nextBtn = document.getElementById('next');
+    const prevBtn = document.getElementById('prev');
+
+    function showCard() {
+        front.textContent = cards[index].word;
+        back.textContent = cards[index].definition;
+        card.classList.remove('flipped');
+    }
+
+    card.addEventListener('click', function (){
         card.classList.toggle('flipped');
     })
+    
+    nextBtn.addEventListener('click', function(){
+        index = index + 1;
+        if(index >= cards.length) {
+            index = 0;
+        }
+        showCard();
+    });
+
+    prevBtn.addEventListener('click', function(){
+        index = index - 1;
+        if (index < 0) {
+            index = cards.length - 1;
+        }
+        showCard();
+    });
 </script>
+
+</body>
 </html>
